@@ -41,6 +41,8 @@
 extern "C" {
 #endif
 
+#include <stdint.h>
+
 #if defined(__STDC__)
 # define C89 1
 # if defined(__STDC_VERSION__)
