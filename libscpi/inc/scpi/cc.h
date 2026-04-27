@@ -54,6 +54,11 @@ extern "C" {
 # endif
 #endif
 
+#if defined(__GNUC__) || defined(__clang__)
+# define C94 1
+# define C99 1
+#endif
+
 #if defined(__cplusplus)
 # if (__cplusplus >= 199711)
 #  define CXX98 1

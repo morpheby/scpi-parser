@@ -61,6 +61,12 @@ extern "C" {
 #define USE_CUSTOM_REGISTERS 0
 #endif
 
+#ifdef __PICOLIBC__
+#define SCPI_PRINTF_FLOAT(x) printf_float(x)
+#else
+#define SCPI_PRINTF_FLOAT(x) (x)
+#endif
+
 /**
  * Detect, if it has limited resources or it is running on a full blown operating system.
  * All values can be overiden by scpi_user_config.h
@@ -201,7 +207,7 @@ extern "C" {
 #elif USE_CUSTOM_DTOSTRE
 #define SCPIDEFINE_floatToStr(v, s, l) SCPI_dtostre((v), (s), (l), 6, 0)
 #elif HAVE_SNPRINTF
-#define SCPIDEFINE_floatToStr(v, s, l) snprintf((s), (l), "%g", (v))
+#define SCPIDEFINE_floatToStr(v, s, l) snprintf((s), (l), "%g", SCPI_PRINTF_FLOAT(v))
 #else
 #define SCPIDEFINE_floatToStr(v, s, l) SCPI_dtostre((v), (s), (l), 6, 0)
 #endif
@@ -211,7 +217,7 @@ extern "C" {
 #elif USE_CUSTOM_DTOSTRE
 #define SCPIDEFINE_doubleToStr(v, s, l) SCPI_dtostre((v), (s), (l), 15, 0)
 #elif HAVE_SNPRINTF
-#define SCPIDEFINE_doubleToStr(v, s, l) snprintf((s), (l), "%.15lg", (v))
+#define SCPIDEFINE_doubleToStr(v, s, l) snprintf((s), (l), "%.15lg", SCPI_PRINTF_FLOAT(v))
 #else
 #define SCPIDEFINE_doubleToStr(v, s, l) SCPI_dtostre((v), (s), (l), 15, 0)
 #endif
