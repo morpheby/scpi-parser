@@ -292,6 +292,20 @@ extern "C" {
   #define INFINITY                                      (1.0 / 0.0)
 #endif
 
+#ifndef SCPI_FLOAT_TYPE_FLOAT
+  #define SCPI_FLOAT_TYPE_FLOAT 0
+#endif
+
+#if SCPI_FLOAT_TYPE_FLOAT
+#define SCPI_FLOAT_TYPE float
+#define SCPI_ParamToFloatType SCPI_ParamToFloat
+#define SCPI_FloatTypeToStr SCPI_FloatToStr
+#else
+#define SCPI_FLOAT_TYPE double
+#define SCPI_ParamToFloatType SCPI_ParamToDouble
+#define SCPI_FloatTypeToStr SCPI_DoubleToStr
+#endif
+
 #ifdef	__cplusplus
 }
 #endif

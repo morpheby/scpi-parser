@@ -352,7 +352,7 @@ extern "C" {
     struct _scpi_unit_def_t {
         const char * name;
         scpi_unit_t unit;
-        double mult;
+        SCPI_FLOAT_TYPE mult;
     };
 #define SCPI_UNITS_LIST_END       {NULL, SCPI_UNIT_NONE, 0}
     typedef struct _scpi_unit_def_t scpi_unit_def_t;
@@ -389,7 +389,7 @@ extern "C" {
         scpi_bool_t special;
 
         union {
-            double value;
+            SCPI_FLOAT_TYPE value;
             int32_t tag;
         } content;
         scpi_unit_t unit;

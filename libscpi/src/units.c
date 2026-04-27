@@ -427,23 +427,23 @@ scpi_bool_t SCPI_ParamNumber(scpi_t * context, const scpi_choice_def_t * special
 
     switch (param.type) {
         case SCPI_TOKEN_DECIMAL_NUMERIC_PROGRAM_DATA:
-            SCPI_ParamToDouble(context, &param, &(value->content.value));
+            SCPI_ParamToFloatType(context, &param, &(value->content.value));
             break;
         case SCPI_TOKEN_HEXNUM:
-            SCPI_ParamToDouble(context, &param, &(value->content.value));
+            SCPI_ParamToFloatType(context, &param, &(value->content.value));
             break;
         case SCPI_TOKEN_OCTNUM:
-            SCPI_ParamToDouble(context, &param, &(value->content.value));
+            SCPI_ParamToFloatType(context, &param, &(value->content.value));
             break;
         case SCPI_TOKEN_BINNUM:
-            SCPI_ParamToDouble(context, &param, &(value->content.value));
+            SCPI_ParamToFloatType(context, &param, &(value->content.value));
             break;
         case SCPI_TOKEN_DECIMAL_NUMERIC_PROGRAM_DATA_WITH_SUFFIX:
             scpiLex_DecimalNumericProgramData(&state, &token);
             scpiLex_WhiteSpace(&state, &token);
             scpiLex_SuffixProgramData(&state, &token);
 
-            SCPI_ParamToDouble(context, &param, &(value->content.value));
+            SCPI_ParamToFloatType(context, &param, &(value->content.value));
 
             result = transformNumber(context, token.ptr, token.len, value);
             break;
@@ -494,7 +494,7 @@ size_t SCPI_NumberToStr(scpi_t * context, const scpi_choice_def_t * special, scp
         }
     }
 
-    result = SCPI_DoubleToStr(value->content.value, str, len);
+    result = SCPI_FloatTypeToStr(value->content.value, str, len);
 
     if (result + 1 < len) {
         unit = translateUnitInverse(context->units, value->unit);
