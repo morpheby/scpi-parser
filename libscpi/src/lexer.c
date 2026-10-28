@@ -627,13 +627,10 @@ int scpiLex_NondecimalNumericData(lex_state_t * state, scpi_token_t * token) {
 }
 
 /* 7.7.5 <STRING PROGRAM DATA> */
-static int isascii7bit(int c) {
-    return (c >= 0) && (c <= 0x7f);
-}
-
 static void skipQuoteProgramData(lex_state_t * state, char quote) {
     while (!iseos(state)) {
-        if (isascii7bit(state->pos[0]) && !ischr(state, quote)) {
+        /* Bytes above 0x7f are let through so that strings may carry UTF-8 */
+        if (!ischr(state, quote)) {
             state->pos++;
         } else if (ischr(state, quote)) {
             state->pos++;
